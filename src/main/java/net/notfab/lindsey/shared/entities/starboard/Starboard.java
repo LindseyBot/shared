@@ -1,0 +1,19 @@
+package net.notfab.lindsey.shared.entities.starboard;
+
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Data
+@Document("Starboard")
+public class Starboard {
+
+    @Id
+    private String id;
+
+    private long guildId;
+    private long channelId;
+    private Long starboardMessageId;
+    private int stars;
+
+}
