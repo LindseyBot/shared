@@ -1,4 +1,4 @@
-package net.notfab.lindsey.shared.entities.starboard;
+package net.notfab.lindsey.shared.entities;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
