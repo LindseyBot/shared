@@ -1,0 +1,60 @@
+name: Build
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      # Chmod
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      # Build
+      - name: Build with Gradle
+        run: ./gradlew build
+      # Upload
+      - name: Save Artifacts
+        uses: actions/upload-artifact@v2
+        if: github.event_name == 'push'
+        with:
+          name: library
+          path: build/libs/*.jar
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+      # Download
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: library
+          path: build/libs/
+      # Delete artifact
+      - name: Delete artifacts
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: library
+      # JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      # Chmod
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      # Publish
+      - name: Publish to Github Packages
+        run: ./gradlew publish
+        env:
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
