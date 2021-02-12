@@ -7,7 +7,7 @@ public class AntiAd {
 
     private boolean enabled = false;
 
-    private boolean ban;
-    private int strikes;
+    private boolean ban = false;
+    private int strikes = 3;
 
 }
