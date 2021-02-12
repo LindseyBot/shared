@@ -3,6 +3,7 @@ package net.notfab.lindsey.shared.entities.profile;
 import lombok.Data;
 import net.notfab.lindsey.shared.entities.playlist.PlayList;
 import net.notfab.lindsey.shared.entities.playlist.PlayListCursor;
+import net.notfab.lindsey.shared.entities.profile.server.AutoMod;
 import net.notfab.lindsey.shared.enums.Language;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -21,6 +22,8 @@ public class ServerProfile {
 
     @DBRef
     private PlayList activePlayList;
+
+    private AutoMod autoMod;
 
     private boolean keepRolesEnabled;
     private Long starboardChannelId;
