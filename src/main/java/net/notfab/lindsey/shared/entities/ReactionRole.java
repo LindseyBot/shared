@@ -1,11 +1,14 @@
 package net.notfab.lindsey.shared.entities;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
-@Document(collection = "ReactionRoles")
+@Entity
+@Table(name = "ReactionRoles")
 public class ReactionRole {
 
     @Id

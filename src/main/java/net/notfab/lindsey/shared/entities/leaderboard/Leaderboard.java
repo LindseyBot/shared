@@ -2,15 +2,18 @@ package net.notfab.lindsey.shared.entities.leaderboard;
 
 import lombok.Data;
 import net.notfab.lindsey.shared.enums.LeaderboardType;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
-@Document("Leaderboards")
+@Entity
+@Table(name = "Leaderboards")
 public class Leaderboard {
 
     @Id
-    private String id;
+    private long id;
 
     private long user;
     private double count;

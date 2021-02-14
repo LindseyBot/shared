@@ -1,15 +1,18 @@
 package net.notfab.lindsey.shared.entities;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
-@Document("Starboard")
+@Entity
+@Table(name = "Starboard")
 public class Starboard {
 
     @Id
-    private String id;
+    private long id;
 
     private long guildId;
     private long channelId;
