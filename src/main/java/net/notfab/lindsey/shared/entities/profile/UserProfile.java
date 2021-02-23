@@ -1,6 +1,7 @@
 package net.notfab.lindsey.shared.entities.profile;
 
 import lombok.Data;
+import net.notfab.lindsey.shared.entities.profile.user.Customization;
 import net.notfab.lindsey.shared.enums.Flags;
 import net.notfab.lindsey.shared.enums.Language;
 import org.springframework.data.annotation.Id;
@@ -18,6 +19,8 @@ public class UserProfile {
 
     private String name;
     private long lastSeen;
+
+    @Enumerated(EnumType.STRING)
     private Language language = Language.en_US;
 
     @Enumerated(EnumType.STRING)
@@ -27,5 +30,7 @@ public class UserProfile {
 
     private long cookieStreak = 0;
     private long lastDailyCookies = 0;
+
+    private Customization customization;
 
 }
