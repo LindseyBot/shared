@@ -1,20 +1,17 @@
 package net.notfab.lindsey.shared.entities.items;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
 @Entity
 @Table(name = "Items_Background")
-public class Background {
+@EqualsAndHashCode(callSuper = true)
+public class Background extends Item {
 
-    @Id
-    private Long id;
-    private String name;
-    private String description;
     private String fontColor;
     private String assetUrl;
 
