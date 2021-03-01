@@ -3,9 +3,7 @@ package net.notfab.lindsey.shared.entities.leaderboard;
 import lombok.Data;
 import net.notfab.lindsey.shared.enums.LeaderboardType;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -17,6 +15,8 @@ public class Leaderboard {
 
     private long user;
     private double count;
+
+    @Enumerated(EnumType.STRING)
     private LeaderboardType type;
 
 }

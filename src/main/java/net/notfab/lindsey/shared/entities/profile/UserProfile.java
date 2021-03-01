@@ -1,21 +1,18 @@
 package net.notfab.lindsey.shared.entities.profile;
 
 import lombok.Data;
-import net.notfab.lindsey.shared.entities.profile.user.Customization;
 import net.notfab.lindsey.shared.enums.Flags;
 import net.notfab.lindsey.shared.enums.Language;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Data
-@Document(collection = "UserProfiles")
+@Entity
+@Table(name = "UserProfiles")
 public class UserProfile {
 
     @Id
-    private String id;
+    private long user;
 
     private String name;
     private long lastSeen;
@@ -30,7 +27,5 @@ public class UserProfile {
 
     private long cookieStreak = 0;
     private long lastDailyCookies = 0;
-
-    private Customization customization;
 
 }
