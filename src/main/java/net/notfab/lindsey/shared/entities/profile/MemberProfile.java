@@ -15,7 +15,6 @@ public class MemberProfile {
     private long userId;
 
     private long lastSeen;
-    private int strikes = 0;
 
     private RoleHistory roleHistory = new RoleHistory();
 

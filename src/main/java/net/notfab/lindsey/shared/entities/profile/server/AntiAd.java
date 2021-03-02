@@ -6,8 +6,6 @@ import lombok.Data;
 public class AntiAd {
 
     private boolean enabled = false;
-
-    private boolean ban = false;
     private int strikes = 3;
 
 }
