@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class DVoiceChannel implements Serializable {
+public class FVoiceChannel implements Serializable {
 
     static final long serialVersionUID = 1L;
 

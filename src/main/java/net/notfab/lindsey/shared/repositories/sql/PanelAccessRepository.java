@@ -13,6 +13,8 @@ public interface PanelAccessRepository extends JpaRepository<PanelAccess, Long> 
 
     Optional<PanelAccess> findByUserAndGuild(long user, long guild);
 
+    List<PanelAccess> findAllByGuild(long guild);
+
     @Transactional
     void deleteByUserAndGuild(long user, long guild);
 

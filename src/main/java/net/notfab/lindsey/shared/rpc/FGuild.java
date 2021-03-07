@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class DGuild implements Serializable {
+public class FGuild implements Serializable {
 
     static final long serialVersionUID = 1L;
 
@@ -14,10 +14,10 @@ public class DGuild implements Serializable {
     private String name;
     private String iconUrl;
 
-    private List<DTextChannel> textChannels;
-    private List<DVoiceChannel> voiceChannels;
+    private List<FTextChannel> textChannels;
+    private List<FVoiceChannel> voiceChannels;
 
-    public DTextChannel getTextChannelById(long id) {
+    public FTextChannel getTextChannelById(long id) {
         return this.textChannels
                 .stream()
                 .filter(channel -> channel.getId() == id)
@@ -25,7 +25,7 @@ public class DGuild implements Serializable {
                 .orElse(null);
     }
 
-    public DVoiceChannel getVoiceChannelById(long id) {
+    public FVoiceChannel getVoiceChannelById(long id) {
         return this.voiceChannels
                 .stream()
                 .filter(channel -> channel.getId() == id)

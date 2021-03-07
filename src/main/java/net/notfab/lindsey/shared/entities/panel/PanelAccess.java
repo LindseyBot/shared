@@ -20,4 +20,6 @@ public class PanelAccess {
     @Enumerated(EnumType.STRING)
     private AccessLevel level;
 
+    private String username;
+
 }

@@ -1,9 +1,9 @@
 package net.notfab.lindsey.shared.rpc.services;
 
-import net.notfab.lindsey.shared.rpc.DGuild;
+import net.notfab.lindsey.shared.rpc.FGuild;
 
 public interface RemoteGuilds {
 
-    DGuild getGuild(long id, long userId);
+    FGuild getGuild(long id, long userId);
 
 }

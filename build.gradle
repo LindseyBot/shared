@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'net.notfab.lindsey'
-version = '0.1.13'
+version = '0.1.14'
 sourceCompatibility = '15'
 
 tasks.withType(JavaCompile) {
@@ -69,11 +69,13 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.12.2'
     compileOnly 'net.jodah:expiringmap:0.5.8'
     compileOnly 'com.squareup.okhttp3:okhttp:3.14.9'
     compileOnly 'org.json:json:20190722'
     compileOnly 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-redis'
     compileOnly 'org.springframework.boot:spring-boot-starter-amqp'
     compileOnly 'org.springframework.boot:spring-boot-starter'
     compileOnly 'org.projectlombok:lombok'
