@@ -12,10 +12,10 @@ import javax.persistence.Id;
 public class PanelAccess {
 
     @Id
-    private long id;
+    private Long id;
 
-    private long user;
-    private long guild;
+    private Long user;
+    private Long guild;
 
     @Enumerated(EnumType.STRING)
     private AccessLevel level;
