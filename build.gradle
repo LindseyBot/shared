@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'net.notfab.lindsey'
-version = '0.1.15'
+version = '0.1.16'
 sourceCompatibility = '15'
 
 tasks.withType(JavaCompile) {
@@ -65,10 +65,11 @@ publishing {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
+    compileOnly 'com.github.mpkorstanje:simmetrics-core:4.1.1'
     compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.12.2'
     compileOnly 'net.jodah:expiringmap:0.5.8'
     compileOnly 'com.squareup.okhttp3:okhttp:3.14.9'

@@ -1,6 +1,7 @@
 package net.notfab.lindsey.shared.entities.profile;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.notfab.lindsey.shared.enums.Flags;
 import net.notfab.lindsey.shared.enums.Language;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "UserProfiles")
 public class UserProfile {
 
@@ -27,5 +29,9 @@ public class UserProfile {
 
     private long cookieStreak = 0;
     private long lastDailyCookies = 0;
+
+    public UserProfile(long user) {
+        this.user = user;
+    }
 
 }

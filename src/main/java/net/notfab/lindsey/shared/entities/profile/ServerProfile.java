@@ -1,32 +1,29 @@
 package net.notfab.lindsey.shared.entities.profile;
 
 import lombok.Data;
-import net.notfab.lindsey.shared.entities.playlist.PlayList;
-import net.notfab.lindsey.shared.entities.playlist.PlayListCursor;
-import net.notfab.lindsey.shared.entities.profile.server.AutoMod;
+import lombok.NoArgsConstructor;
 import net.notfab.lindsey.shared.enums.Language;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
-@Document(collection = "ServerProfiles")
+@Entity
+@NoArgsConstructor
+@Table(name = "server_settings")
 public class ServerProfile {
 
     @Id
-    private String id;
+    private long guild;
 
     private String prefix;
-    private PlayListCursor cursor;
     private Language language;
 
-    @DBRef
-    private PlayList activePlayList;
+    private boolean keepRolesEnabled = false;
 
-    private AutoMod autoMod;
-
-    private boolean keepRolesEnabled;
-    private Long starboardChannelId;
-    private Long musicChannelId;
+    public ServerProfile(long guild) {
+        this.guild = guild;
+    }
 
 }

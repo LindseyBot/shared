@@ -1,6 +1,7 @@
 package net.notfab.lindsey.shared.entities.profile.user;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.notfab.lindsey.shared.converters.LongListJsonConverter;
 
 import javax.persistence.Convert;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "UserProfiles_Customization")
 public class UserCustomization {
 
@@ -21,5 +23,9 @@ public class UserCustomization {
 
     @Convert(converter = LongListJsonConverter.class)
     private List<Long> badges;
+
+    public UserCustomization(long user) {
+        this.user = user;
+    }
 
 }

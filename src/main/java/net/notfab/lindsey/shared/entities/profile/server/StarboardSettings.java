@@ -10,16 +10,17 @@ import javax.persistence.Table;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "server_settings_antiad")
-public class AntiAd {
+@Table(name = "server_settings_starboard")
+public class StarboardSettings {
 
     @Id
     private long guild;
 
     private boolean enabled = false;
-    private int strikes = 3;
+    private int minStars = 3;
+    private Long channel;
 
-    public AntiAd(long guild) {
+    public StarboardSettings(long guild) {
         this.guild = guild;
     }
 
