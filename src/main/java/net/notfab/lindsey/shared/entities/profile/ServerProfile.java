@@ -4,9 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.notfab.lindsey.shared.enums.Language;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -18,7 +16,9 @@ public class ServerProfile {
     private long guild;
 
     private String prefix;
-    private Language language;
+
+    @Enumerated(EnumType.STRING)
+    private Language language = Language.en_US;
 
     private boolean keepRolesEnabled = false;
 
