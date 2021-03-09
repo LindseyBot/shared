@@ -1,8 +1,10 @@
 package net.notfab.lindsey.shared.rpc;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,21 +16,46 @@ public class FGuild implements Serializable {
     private String name;
     private String iconUrl;
 
-    private List<FTextChannel> textChannels;
-    private List<FVoiceChannel> voiceChannels;
+    private List<FChannel> channels;
+    private List<FRole> roles;
 
-    public FTextChannel getTextChannelById(long id) {
-        return this.textChannels
+    @JsonIgnore
+    public List<FChannel> getAllChannels() {
+        List<FChannel> channels = new ArrayList<>();
+        for (FChannel channel : this.channels) {
+            if (channel instanceof FCategory) {
+                channels.addAll(((FCategory) channel).getChannels());
+            } else {
+                channels.add(channel);
+            }
+        }
+        return channels;
+    }
+
+    @JsonIgnore
+    public FChannel getTextChannelById(long id) {
+        return this.getAllChannels()
                 .stream()
+                .filter(channel -> channel.getType() == FChannelType.TEXT)
                 .filter(channel -> channel.getId() == id)
                 .findFirst()
                 .orElse(null);
     }
 
-    public FVoiceChannel getVoiceChannelById(long id) {
-        return this.voiceChannels
+    @JsonIgnore
+    public FChannel getVoiceChannelById(long id) {
+        return this.getAllChannels()
                 .stream()
+                .filter(channel -> channel.getType() == FChannelType.VOICE)
                 .filter(channel -> channel.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
+    @JsonIgnore
+    public FRole getRoleById(long id) {
+        return this.roles.stream()
+                .filter(role -> role.getId() == id)
                 .findFirst()
                 .orElse(null);
     }

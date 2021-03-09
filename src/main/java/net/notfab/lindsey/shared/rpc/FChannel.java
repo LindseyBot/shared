@@ -5,12 +5,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class FTextChannel implements Serializable {
+public class FChannel implements Serializable {
 
     static final long serialVersionUID = 1L;
 
     private long id;
     private String name;
+    private FChannelType type;
     int position;
 
 }
