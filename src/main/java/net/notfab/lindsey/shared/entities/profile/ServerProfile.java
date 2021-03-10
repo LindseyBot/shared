@@ -16,6 +16,7 @@ public class ServerProfile {
     private long guild;
 
     private String prefix;
+    private long lastSeen;
 
     @Enumerated(EnumType.STRING)
     private Language language = Language.en_US;

@@ -1,21 +1,25 @@
 package net.notfab.lindsey.shared.entities.profile;
 
 import lombok.Data;
-import net.notfab.lindsey.shared.entities.profile.member.RoleHistory;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 @Data
-@Document(collection = "MemberProfiles")
+@Entity
+@Table(name = "MemberProfiles", indexes = {
+        @Index(name = "user_guild", columnList = "user,guild")
+})
 public class MemberProfile {
 
     @Id
-    private String id;
-    private long guildId;
-    private long userId;
+    private long id;
+
+    private long user;
+    private long guild;
 
     private long lastSeen;
-
-    private RoleHistory roleHistory = new RoleHistory();
 
 }
