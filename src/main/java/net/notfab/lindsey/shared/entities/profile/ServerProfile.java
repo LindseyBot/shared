@@ -22,6 +22,7 @@ public class ServerProfile {
     private Language language = Language.en_US;
 
     private boolean keepRolesEnabled = false;
+    private boolean modLogEnabled = false;
 
     public ServerProfile(long guild) {
         this.guild = guild;
