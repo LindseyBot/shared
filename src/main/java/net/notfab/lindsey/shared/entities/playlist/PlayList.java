@@ -1,6 +1,7 @@
 package net.notfab.lindsey.shared.entities.playlist;
 
 import lombok.Data;
+import net.notfab.lindsey.shared.enums.PlayListGenre;
 import net.notfab.lindsey.shared.enums.PlayListSecurity;
 
 import javax.persistence.*;
@@ -20,5 +21,8 @@ public class PlayList {
 
     @Enumerated(EnumType.STRING)
     private PlayListSecurity security = PlayListSecurity.PUBLIC;
+
+    @Enumerated(EnumType.STRING)
+    private PlayListGenre genre = PlayListGenre.MIXED;
 
 }
