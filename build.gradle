@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'net.notfab.lindsey'
-version = '0.1.22'
+version = '0.1.23'
 sourceCompatibility = '15'
 
 tasks.withType(JavaCompile) {

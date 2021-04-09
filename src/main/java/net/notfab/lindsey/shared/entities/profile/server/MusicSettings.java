@@ -2,10 +2,9 @@ package net.notfab.lindsey.shared.entities.profile.server;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.notfab.lindsey.shared.enums.PlayListMode;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -21,6 +20,9 @@ public class MusicSettings {
 
     private Long activePlayList;
     private int position;
+
+    @Enumerated(EnumType.ORDINAL)
+    private PlayListMode mode = PlayListMode.QUEUE;
 
     public MusicSettings(long guild) {
         this.guild = guild;

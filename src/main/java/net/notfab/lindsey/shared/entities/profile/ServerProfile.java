@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import net.notfab.lindsey.shared.enums.Language;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -21,8 +22,8 @@ public class ServerProfile {
     @Enumerated(EnumType.STRING)
     private Language language = Language.en_US;
 
-    private boolean keepRolesEnabled = false;
-    private boolean modLogEnabled = false;
+    @Transient
+    private Set<String> ignoredChannels;
 
     public ServerProfile(long guild) {
         this.guild = guild;
