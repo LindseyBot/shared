@@ -1,8 +1,8 @@
-package net.notfab.lindsey.shared.entities.commands.builders;
+package net.lindseybot.commands.request;
 
 import lombok.Data;
-import net.notfab.lindsey.shared.entities.commands.CommandOption;
-import net.notfab.lindsey.shared.entities.commands.OptionType;
+import net.lindseybot.commands.CommandBuilder;
+import net.lindseybot.enums.OptionType;
 
 import java.util.List;
 

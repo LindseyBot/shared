@@ -1,4 +1,4 @@
-package net.notfab.lindsey.shared.entities.commands.response;
+package net.lindseybot.commands.response;
 
 public class InvalidResponse extends ErrorResponse {
 

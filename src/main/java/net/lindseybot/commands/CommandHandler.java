@@ -1,4 +1,4 @@
-package net.notfab.lindsey.shared.entities.commands;
+package net.lindseybot.commands;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package net.notfab.lindsey.shared.entities.commands;
+package net.lindseybot.enums;
 
 public enum OptionType {
 

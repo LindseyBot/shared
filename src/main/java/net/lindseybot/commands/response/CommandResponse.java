@@ -1,8 +1,8 @@
-package net.notfab.lindsey.shared.entities.commands;
+package net.lindseybot.commands.response;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import net.notfab.lindsey.shared.entities.commands.response.ErrorResponse;
-import net.notfab.lindsey.shared.entities.commands.response.InvalidResponse;
+import net.lindseybot.commands.response.ErrorResponse;
+import net.lindseybot.commands.response.InvalidResponse;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 public interface CommandResponse {

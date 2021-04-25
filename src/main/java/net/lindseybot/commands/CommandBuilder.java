@@ -1,8 +1,8 @@
-package net.notfab.lindsey.shared.entities.commands.builders;
+package net.lindseybot.commands;
 
-import net.notfab.lindsey.shared.entities.commands.CommandOption;
-import net.notfab.lindsey.shared.entities.commands.ExternalCommand;
-import net.notfab.lindsey.shared.entities.commands.OptionType;
+import net.lindseybot.commands.request.CommandOption;
+import net.lindseybot.commands.request.OptionBuilder;
+import net.lindseybot.enums.OptionType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ public class CommandBuilder {
     private final List<String> aliases;
 
     private final List<CommandOption> options = new ArrayList<>();
-    private final List<ExternalCommand> commands = new ArrayList<>();
+    private final List<Command> commands = new ArrayList<>();
 
     private boolean nsfw = false;
     private boolean adminOnly = false;
@@ -63,7 +63,7 @@ public class CommandBuilder {
 
     // -- Internal
 
-    public void addGroup(ExternalCommand cmd) {
+    public void addGroup(Command cmd) {
         this.commands.add(cmd);
     }
 
@@ -79,8 +79,8 @@ public class CommandBuilder {
         return this.parent;
     }
 
-    public ExternalCommand build() {
-        return new ExternalCommand(this.name, this.description, this.nsfw, this.adminOnly, this.developerOnly, this.aliases, this.options, this.commands);
+    public Command build() {
+        return new Command(this.name, this.description, this.nsfw, this.adminOnly, this.developerOnly, this.aliases, this.options, this.commands);
     }
 
 }

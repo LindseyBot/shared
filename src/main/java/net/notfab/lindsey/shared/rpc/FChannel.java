@@ -13,5 +13,6 @@ public class FChannel implements Serializable {
     private String name;
     private FChannelType type;
     int position;
+    private boolean nsfw;
 
 }

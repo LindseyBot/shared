@@ -1,4 +1,4 @@
-package net.notfab.lindsey.shared.entities.events;
+package net.lindseybot.events;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

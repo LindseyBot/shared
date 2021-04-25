@@ -1,4 +1,4 @@
-package net.notfab.lindsey.shared.entities.commands;
+package net.lindseybot.commands.request;
 
 import lombok.Data;
 import net.notfab.lindsey.shared.rpc.FChannel;

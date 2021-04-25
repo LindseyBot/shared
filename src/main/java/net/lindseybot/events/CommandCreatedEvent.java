@@ -1,14 +1,14 @@
-package net.notfab.lindsey.shared.entities.events;
+package net.lindseybot.events;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.notfab.eventti.Event;
-import net.notfab.lindsey.shared.entities.commands.ExternalCommand;
+import net.lindseybot.commands.Command;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CommandCreatedEvent extends Event {
 
-    private ExternalCommand command;
+    private Command command;
 
 }
