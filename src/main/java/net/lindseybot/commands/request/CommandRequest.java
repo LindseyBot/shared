@@ -11,6 +11,7 @@ import java.util.Map;
 @Data
 public class CommandRequest {
 
+    private String id;
     private String commandName;
     private String commandPath;
 
