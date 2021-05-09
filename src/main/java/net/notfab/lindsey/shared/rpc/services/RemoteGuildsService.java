@@ -4,7 +4,11 @@ import net.notfab.lindsey.shared.rpc.FGuild;
 
 import java.util.List;
 
-public interface RemoteGuilds {
+public interface RemoteGuildsService {
+
+    default String getRabbitName() {
+        return "RemoteGuildsService";
+    }
 
     FGuild getGuild(long id, long userId);
 
