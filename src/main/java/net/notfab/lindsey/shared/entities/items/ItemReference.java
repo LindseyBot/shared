@@ -13,7 +13,9 @@ public class ItemReference {
     @Id
     private Long id;
     private Long owner;
-    private Long itemId;
+
+    @ManyToOne
+    private Item item;
 
     @Enumerated(EnumType.STRING)
     private ItemType type;
