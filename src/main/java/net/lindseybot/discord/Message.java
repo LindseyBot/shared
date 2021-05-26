@@ -15,6 +15,7 @@ public class Message {
 
     private Embed embed;
     private List<MentionType> allowedMentions = new ArrayList<>();
+    private List<MessageComponent> components = new ArrayList<>();
 
     /**
      * Starts a builder to create a message.

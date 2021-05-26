@@ -12,7 +12,6 @@ public class MessageBuilder {
         this.message = new Message();
     }
 
-
     /**
      * Creates a MessageBuilder with a translated message as base.
      *
@@ -66,6 +65,30 @@ public class MessageBuilder {
      */
     public MessageBuilder embed(Embed embed) {
         this.message.setEmbed(embed);
+        return this;
+    }
+
+    /**
+     * Specifies the list of components for this message.
+     * See {@link ButtonBuilder}.
+     *
+     * @param components List of components.
+     * @return Builder for chaining.
+     */
+    public MessageBuilder components(MessageComponent... components) {
+        this.message.setComponents(Arrays.asList(components));
+        return this;
+    }
+
+    /**
+     * Adds a component to this message.
+     * See {@link ButtonBuilder}.
+     *
+     * @param component The component to add.
+     * @return Builder for chaining.
+     */
+    public MessageBuilder addComponent(MessageComponent component) {
+        this.message.getComponents().add(component);
         return this;
     }
 
