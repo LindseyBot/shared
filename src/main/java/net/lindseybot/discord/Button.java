@@ -10,5 +10,7 @@ public class Button implements MessageComponent {
     private Message label;
     private DiscordButtonStyle style;
     private boolean disabled;
+    private Emote emote;
+    private long userFilter;
 
 }

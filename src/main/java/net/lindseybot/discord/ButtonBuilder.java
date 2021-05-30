@@ -21,6 +21,28 @@ public class ButtonBuilder {
     }
 
     /**
+     * Sets an emote for this button.
+     *
+     * @param emote Emote.
+     * @return Builder for chaining.
+     */
+    public ButtonBuilder withEmote(Emote emote) {
+        this.button.setEmote(emote);
+        return this;
+    }
+
+    /**
+     * Forces this button to only work for a specific user.
+     *
+     * @param userId The user's id.
+     * @return Builder for chaining.
+     */
+    public ButtonBuilder filter(long userId) {
+        this.button.setUserFilter(userId);
+        return this;
+    }
+
+    /**
      * Updates this button to be a primary button.
      *
      * @param id    Button ID.
