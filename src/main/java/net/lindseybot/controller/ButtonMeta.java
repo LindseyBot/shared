@@ -7,5 +7,6 @@ public class ButtonMeta {
 
     private String method;
     private boolean ephemeral;
+    private boolean editsMessage;
 
 }

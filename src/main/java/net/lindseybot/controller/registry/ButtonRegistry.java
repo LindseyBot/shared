@@ -147,4 +147,14 @@ public class ButtonRegistry implements Listener {
         return new ArrayList<>(this.buttons.values());
     }
 
+    /**
+     * Returns a button's metadata.
+     *
+     * @param name Name of the button.
+     * @return Metadata.
+     */
+    public ButtonMeta get(String name) {
+        return this.buttons.get(name);
+    }
+
 }
