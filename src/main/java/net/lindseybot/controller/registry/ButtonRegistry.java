@@ -133,7 +133,7 @@ public class ButtonRegistry implements Listener, Interceptor, RedisConsumer<Butt
      */
     @PreDestroy
     public void shutdown() {
-        this.selfButtons.forEach(this::unregister);
+        new ArrayList<>(this.selfButtons).forEach(this::unregister);
     }
 
     /**

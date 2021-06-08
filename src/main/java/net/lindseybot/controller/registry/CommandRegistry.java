@@ -19,6 +19,7 @@ import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class CommandRegistry implements Listener, Interceptor, RedisConsumer<CommandRequest> {
@@ -136,6 +137,7 @@ public class CommandRegistry implements Listener, Interceptor, RedisConsumer<Com
             this.messaging.remConsumer("Lindsey:Commands:" + meta.getName(), this);
             this.listeners.keySet().stream()
                     .filter(key -> key.startsWith(meta.getName() + ".") || key.equalsIgnoreCase(meta.getName()))
+                    .collect(Collectors.toList())
                     .forEach(this.listeners::remove);
         } catch (IOException ex) {
             throw new IllegalStateException("Failed to delete command", ex);
@@ -147,7 +149,7 @@ public class CommandRegistry implements Listener, Interceptor, RedisConsumer<Com
      */
     @PreDestroy
     public void shutdown() {
-        this.selfCommands.forEach(this::unregister);
+        new ArrayList<>(this.selfCommands).forEach(this::unregister);
     }
 
     /**
