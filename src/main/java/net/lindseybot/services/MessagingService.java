@@ -100,7 +100,7 @@ public class MessagingService {
                         continue;
                     }
                     for (String data : list) {
-                        if (data == null || data.isBlank()) {
+                        if (data == null || data.isBlank() || data.equals(queue)) {
                             continue;
                         }
                         try {
