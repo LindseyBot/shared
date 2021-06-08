@@ -1,5 +1,6 @@
 package net.lindseybot.discord;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class Emote {
     /**
      * @return If this emote is unicode.
      */
+    @JsonIgnore
     public boolean isUnicode() {
         return this.id == 0;
     }
@@ -39,6 +41,7 @@ public class Emote {
      *
      * @return Emote's mention.
      */
+    @JsonIgnore
     public String asMention() {
         if (isUnicode()) {
             return this.name;
@@ -52,6 +55,7 @@ public class Emote {
      *
      * @return Emote's reaction name.
      */
+    @JsonIgnore
     public String asReaction() {
         if (isUnicode()) {
             return this.name;

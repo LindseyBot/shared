@@ -117,16 +117,6 @@ public class InteractionResponseBuilder {
     }
 
     /**
-     * Edits the last message sent.
-     *
-     * @param message Message content.
-     * @return Builder for chaining.
-     */
-    public InteractionResponseBuilder editLast(Message message) {
-        return this.editMessage(0L, 0L, message);
-    }
-
-    /**
      * Deletes a message from a channel by id.
      *
      * @param channelId Id of the channel.
