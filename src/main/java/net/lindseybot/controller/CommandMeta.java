@@ -1,10 +1,10 @@
-package net.lindseybot.commands;
+package net.lindseybot.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.lindseybot.commands.request.CommandOption;
+import net.lindseybot.enums.CommandType;
 
 import java.util.List;
 
@@ -12,24 +12,25 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Command {
+public class CommandMeta {
 
     private String name;
     private String description;
     private boolean nsfw;
     private boolean adminOnly;
     private boolean developerOnly;
+    private CommandType type;
     private List<String> aliases;
 
     private List<CommandOption> options;
-    private List<Command> commands;
+    private List<CommandMeta> subcommands;
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Command)) {
+        if (!(object instanceof CommandMeta)) {
             return false;
         }
-        return ((Command) object).getName().equals(name);
+        return ((CommandMeta) object).getName().equals(name);
     }
 
 }

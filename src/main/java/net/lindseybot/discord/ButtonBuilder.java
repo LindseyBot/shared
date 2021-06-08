@@ -21,6 +21,17 @@ public class ButtonBuilder {
     }
 
     /**
+     * Adds a small bit of custom data to a button.
+     *
+     * @param data Data to add.
+     * @return Builder for chaining.
+     */
+    public ButtonBuilder withData(String data) {
+        this.button.setData(data);
+        return this;
+    }
+
+    /**
      * Sets an emote for this button.
      *
      * @param emote Emote.
@@ -101,12 +112,12 @@ public class ButtonBuilder {
     /**
      * Updates this button to be a link button.
      *
-     * @param id    Button's link.
+     * @param url   Button's link.
      * @param label Button label.
      * @return Builder for chaining.
      */
-    public ButtonBuilder link(String id, Message label) {
-        this.button.setIdOrUrl(id);
+    public ButtonBuilder link(String url, Message label) {
+        this.button.setIdOrUrl(url);
         this.button.setStyle(DiscordButtonStyle.LINK);
         this.button.setLabel(label);
         return this;

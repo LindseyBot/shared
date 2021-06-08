@@ -1,4 +1,4 @@
-package net.lindseybot.commands.request;
+package net.lindseybot.controller;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

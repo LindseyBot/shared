@@ -12,6 +12,7 @@ public class Message {
     private String name;
     private Object[] args;
     private boolean raw = false;
+    private boolean ephemeral = false;
 
     private Embed embed;
     private List<MentionType> allowedMentions = new ArrayList<>();

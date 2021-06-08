@@ -1,24 +1,21 @@
-package net.lindseybot.commands.request;
+package net.lindseybot.framework;
 
 import lombok.Data;
+import net.lindseybot.discord.bridge.InteractionData;
 import net.notfab.lindsey.shared.rpc.FChannel;
 import net.notfab.lindsey.shared.rpc.FGuild;
 import net.notfab.lindsey.shared.rpc.FMember;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Data
 public class CommandRequest {
 
-    private String id;
-    private String commandName;
-    private String commandPath;
+    private String path;
+    private InteractionData interaction;
 
     private FGuild guild;
     private FMember member;
     private FChannel channel;
 
-    private Map<String, Object> options = new HashMap<>();
+    private CommandOpts options = new CommandOpts();
 
 }

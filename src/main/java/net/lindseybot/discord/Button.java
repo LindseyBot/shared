@@ -7,6 +7,7 @@ import net.lindseybot.enums.DiscordButtonStyle;
 public class Button implements MessageComponent {
 
     private String idOrUrl;
+    private String data;
     private Message label;
     private DiscordButtonStyle style;
     private boolean disabled;

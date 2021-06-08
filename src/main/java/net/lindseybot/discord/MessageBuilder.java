@@ -93,6 +93,18 @@ public class MessageBuilder {
     }
 
     /**
+     * Marks this message as ephemeral, meaning it will only appear to the target user
+     * and cannot be updated or deleted. This can only be used on interactions and will
+     * be ignored if the meta does not support ephemeral messages.
+     *
+     * @return Builder for chaining.
+     */
+    public MessageBuilder ephemeral() {
+        this.message.setEphemeral(true);
+        return this;
+    }
+
+    /**
      * Builds this message.
      *
      * @return Message.

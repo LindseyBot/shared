@@ -1,11 +1,16 @@
 package net.lindseybot.controller.registry;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.istack.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import net.lindseybot.controller.ButtonMeta;
+import net.lindseybot.discord.bridge.InteractionResponse;
 import net.lindseybot.events.ButtonMetaEvent;
+import net.lindseybot.framework.ButtonRequest;
+import net.lindseybot.models.RedisConsumer;
 import net.lindseybot.properties.ControllerProperties;
 import net.lindseybot.services.EventService;
+import net.lindseybot.services.MessagingService;
 import net.notfab.eventti.EventHandler;
 import net.notfab.eventti.Listener;
 import okhttp3.*;
@@ -13,19 +18,24 @@ import okhttp3.*;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
 
 @Slf4j
-public class ButtonRegistry implements Listener {
+public class ButtonRegistry implements Listener, Interceptor, RedisConsumer<ButtonRequest> {
 
     private final ControllerProperties properties;
     private final OkHttpClient okHttpClient;
     private final ObjectMapper objectMapper;
     private final Map<String, ButtonMeta> buttons = new HashMap<>();
     private final Set<String> selfButtons = new HashSet<>();
+    private final Map<String, Function<ButtonRequest, InteractionResponse>> listeners = new HashMap<>();
 
-    public ButtonRegistry(ControllerProperties properties, EventService events) {
+    private final MessagingService messaging;
+
+    public ButtonRegistry(ControllerProperties properties, EventService events, MessagingService messaging) {
         this.properties = properties;
-        this.okHttpClient = new OkHttpClient();
+        this.messaging = messaging;
+        this.okHttpClient = new OkHttpClient.Builder().addInterceptor(this).build();
         this.objectMapper = new ObjectMapper();
         events.addListener(this);
         this.load();
@@ -46,12 +56,10 @@ public class ButtonRegistry implements Listener {
      * Loads all buttons from the main registry.
      */
     public void load() {
-        Request request = new Request.Builder()
-                .url(this.properties.getUrl() + "/buttons")
-                .addHeader("Authorization", "Bearer " + this.properties.getToken())
-                .addHeader("X-Worker-Id", this.properties.getId())
-                .get().build();
         try {
+            Request request = new Request.Builder()
+                    .url(this.properties.getUrl() + "/buttons")
+                    .get().build();
             Response response = this.okHttpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
                 throw new IOException("Invalid response code " + response.code());
@@ -79,20 +87,20 @@ public class ButtonRegistry implements Listener {
      *
      * @param meta Button metadata.
      */
-    public void register(ButtonMeta meta) {
+    public void register(ButtonMeta meta, Function<ButtonRequest, InteractionResponse> listener) {
         try {
             RequestBody body = RequestBody
                     .create(MediaType.parse("application/json"), this.objectMapper.writeValueAsString(meta));
             Request request = new Request.Builder()
                     .url(this.properties.getUrl() + "/buttons")
-                    .addHeader("Authorization", "Bearer " + this.properties.getToken())
-                    .addHeader("X-Worker-Id", this.properties.getId())
                     .post(body).build();
             Response response = this.okHttpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
                 throw new IOException("Invalid response code " + response.code());
             }
             this.selfButtons.add(meta.getMethod());
+            this.listeners.put(meta.getMethod(), listener);
+            this.messaging.addConsumer("Lindsey:Buttons:" + meta.getMethod(), this);
         } catch (IOException ex) {
             throw new IllegalStateException("Failed to create button", ex);
         }
@@ -107,14 +115,14 @@ public class ButtonRegistry implements Listener {
         try {
             Request request = new Request.Builder()
                     .url(this.properties.getUrl() + "/buttons/" + name)
-                    .addHeader("Authorization", "Bearer " + this.properties.getToken())
-                    .addHeader("X-Worker-Id", this.properties.getId())
                     .delete().build();
             Response response = this.okHttpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
                 throw new IOException("Invalid response code " + response.code());
             }
             this.selfButtons.remove(name);
+            this.listeners.remove(name);
+            this.messaging.remConsumer("Lindsey:Buttons:" + name, this);
         } catch (IOException ex) {
             throw new IllegalStateException("Failed to delete button", ex);
         }
@@ -155,6 +163,35 @@ public class ButtonRegistry implements Listener {
      */
     public ButtonMeta get(String name) {
         return this.buttons.get(name);
+    }
+
+    @NotNull
+    @Override
+    public Response intercept(@NotNull Chain chain) throws IOException {
+        Request request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer " + this.properties.getToken())
+                .addHeader("X-Worker-Id", this.properties.getId())
+                .build();
+        return chain.proceed(request);
+    }
+
+    @Override
+    public Class<ButtonRequest> getTClass() {
+        return ButtonRequest.class;
+    }
+
+    @Override
+    public void onMessage(ButtonRequest message) {
+        Function<ButtonRequest, InteractionResponse> fn = this.listeners.get(message.getId());
+        if (fn == null) {
+            log.warn("Received a button request with unknown id " + message.getId());
+            return;
+        }
+        try {
+            this.messaging.enqueue("Lindsey:Interactions", fn.apply(message));
+        } catch (Exception ex) {
+            log.error("Failed to process button click", ex);
+        }
     }
 
 }

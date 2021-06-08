@@ -1,7 +1,8 @@
-package net.lindseybot.commands;
+package net.lindseybot.controller.builder;
 
-import net.lindseybot.commands.request.CommandOption;
-import net.lindseybot.commands.request.OptionBuilder;
+import net.lindseybot.controller.CommandMeta;
+import net.lindseybot.controller.CommandOption;
+import net.lindseybot.enums.CommandType;
 import net.lindseybot.enums.OptionType;
 
 import java.util.ArrayList;
@@ -13,29 +14,28 @@ public class CommandBuilder {
     private final String name;
     private final String description;
     private final CommandBuilder parent;
-    private final List<String> aliases;
+    private final List<String> aliases = new ArrayList<>();
 
     private final List<CommandOption> options = new ArrayList<>();
-    private final List<Command> commands = new ArrayList<>();
+    private final List<CommandMeta> commandMetas = new ArrayList<>();
 
     private boolean nsfw = false;
     private boolean adminOnly = false;
     private boolean developerOnly = false;
+    private CommandType type = CommandType.NORMAL;
 
     // Subcommand
-    public CommandBuilder(String name, String description, CommandBuilder parent) {
+    private CommandBuilder(String name, String description, CommandBuilder parent) {
         this.name = name;
         this.description = description;
         this.parent = parent;
-        this.aliases = new ArrayList<>();
     }
 
     // New command
-    public CommandBuilder(String name, String description, String... aliases) {
+    public CommandBuilder(String name, String description) {
         this.name = name;
         this.description = description;
         this.parent = null;
-        this.aliases = Arrays.asList(aliases);
     }
 
     public OptionBuilder option(OptionType type, String name, String description) {
@@ -44,6 +44,16 @@ public class CommandBuilder {
 
     public CommandBuilder subCommand(String name, String description) {
         return new CommandBuilder(name, description, this);
+    }
+
+    public CommandBuilder type(CommandType type) {
+        this.type = type;
+        return this;
+    }
+
+    public CommandBuilder aliases(String... aliases) {
+        this.aliases.addAll(Arrays.asList(aliases));
+        return this;
     }
 
     public CommandBuilder nsfw() {
@@ -63,8 +73,8 @@ public class CommandBuilder {
 
     // -- Internal
 
-    public void addGroup(Command cmd) {
-        this.commands.add(cmd);
+    public void addGroup(CommandMeta cmd) {
+        this.commandMetas.add(cmd);
     }
 
     public void addOption(CommandOption option) {
@@ -79,8 +89,9 @@ public class CommandBuilder {
         return this.parent;
     }
 
-    public Command build() {
-        return new Command(this.name, this.description, this.nsfw, this.adminOnly, this.developerOnly, this.aliases, this.options, this.commands);
+    public CommandMeta build() {
+        return new CommandMeta(this.name, this.description, this.nsfw, this.adminOnly, this.developerOnly, this.type,
+                this.aliases, this.options, this.commandMetas);
     }
 
 }

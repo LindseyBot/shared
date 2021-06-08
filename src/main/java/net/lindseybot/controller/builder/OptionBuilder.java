@@ -1,7 +1,7 @@
-package net.lindseybot.commands.request;
+package net.lindseybot.controller.builder;
 
 import lombok.Data;
-import net.lindseybot.commands.CommandBuilder;
+import net.lindseybot.controller.CommandOption;
 import net.lindseybot.enums.OptionType;
 
 import java.util.List;
